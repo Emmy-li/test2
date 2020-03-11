@@ -1,0 +1,1482 @@
+{
+	"info": {
+		"_postman_id": "99a59b07-448f-4edf-8233-a883279e1f80",
+		"name": "彩票平台",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1ea705d0-c027-4195-ac01-4cd196d5f88b",
+						"exec": [
+							"postman.setEnvironmentVariable(\"account\",\"emmytest2\");\r",
+							"postman.setEnvironmentVariable(\"password\",\"8a6f2805b4515ac12058e79e66539be9\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a7313c9-0f88-4a09-b643-388ad5146df2",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.globals.set(\"sessionId\",jsonData.data.sessionId);\r",
+							"pm.test(\"登录成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.message).to.eql(\"login success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account",
+							"value": "{{account}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://1112685.com/api/user/login",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取彩票信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6897ceff-d6f3-405c-a1b9-2c1a6128fa8e",
+						"exec": [
+							"pm.test(\"获取成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.title).to.eql(\"和值\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getPlayTreeBetRate?lotteryId=dfk3&playId=k3_star3_and",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getPlayTreeBetRate"
+					],
+					"query": [
+						{
+							"key": "lotteryId",
+							"value": "dfk3"
+						},
+						{
+							"key": "playId",
+							"value": "k3_star3_and"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取游戏所有玩法",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1d74785-808f-4b53-bab3-c828cccfce7b",
+						"exec": [
+							"pm.test(\"获取成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"success\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getLotteryPlayBetRate?lotteryId=dfk3",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getLotteryPlayBetRate"
+					],
+					"query": [
+						{
+							"key": "lotteryId",
+							"value": "dfk3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取往期开奖",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a304231f-7a83-4712-b7c0-228b500373c1",
+						"exec": [
+							"pm.test(\"获取成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"success\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getPastOpen?lotteryId=dfk3&count=10",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getPastOpen"
+					],
+					"query": [
+						{
+							"key": "lotteryId",
+							"value": "dfk3"
+						},
+						{
+							"key": "count",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取余额",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "096ca6a4-5dfb-4d59-80de-2dd72d977e35",
+						"exec": [
+							"pm.test(\"获取成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"success\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/userCenter/getBalance",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"userCenter",
+						"getBalance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取彩票开售时间",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ec023b7-3cea-44cd-a734-0869f086bbf8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"seasonId\",jsonData.data.seasonId);",
+							"pm.test(\"获取成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.lotteryId).to.eql(\"dfk3\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getCurrentSaleTime?lotteryId=dfk3",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getCurrentSaleTime"
+					],
+					"query": [
+						{
+							"key": "lotteryId",
+							"value": "dfk3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "下注接口",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "010c6145-4c6f-4ac2-ad3e-3a6261934838",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9757c087-3c60-4e0a-9f72-7be193cc0747",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"下注成功\",function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"success\");",
+							"});",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "order[0].content",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "order[0].betCount",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "order[0].price",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "order[0].unit",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "order[0].playId",
+							"value": "k3_star1",
+							"type": "text"
+						},
+						{
+							"key": "count",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "traceOrders[0].price",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "traceOrders[0].seasonId",
+							"value": "{{seasonId}}",
+							"type": "text"
+						},
+						{
+							"key": "bounsType",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "traceWinStop",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "isTrace",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "lotteryId",
+							"value": "dfk3",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://1112685.com/api/lottery/bet",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"bet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "首页信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe8984a8-38cf-45a4-a286-022701da1f39",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://1112685.com/sys/project/getUrlInfo?pid=1",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"sys",
+						"project",
+						"getUrlInfo"
+					],
+					"query": [
+						{
+							"key": "pid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取所有彩票接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "760ee726-e5ce-470e-aa1f-a9c2a7227d47",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getLotteryList?type=all",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getLotteryList"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "all"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取活动列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef40b860-79e1-49c4-b807-22bd652a49be",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/active/auto/getActivityHomeList",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"active",
+						"auto",
+						"getActivityHomeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取活动详情",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "493b2632-9790-413e-8148-7f413873e419",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/active/auto/getInfo?id=64",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"active",
+						"auto",
+						"getInfo"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取收款人信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "635d2e9b-2ca2-459b-9125-52240f17dff0",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/rechargeEntrance?rechargeWay=5",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"rechargeEntrance"
+					],
+					"query": [
+						{
+							"key": "rechargeWay",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取充值渠道",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfc2f014-5d13-4374-9644-c77397d11136",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com//api/proxy/getRechargeWayListNew",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"proxy",
+						"getRechargeWayListNew"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "充值",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "755ee925-23ef-44bd-9685-adffcf60a335",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"提交成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "rechargeWay",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "receiveBankId",
+							"value": "130",
+							"type": "text"
+						},
+						{
+							"key": "chargeamount",
+							"value": "100",
+							"type": "text"
+						},
+						{
+							"key": "niceName",
+							"value": "11",
+							"type": "text"
+						},
+						{
+							"key": "checkCode",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "arriveTime",
+							"value": "1128",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://1112685.com/api/proxy/setPayRequest",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"setPayRequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "交易记录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91d704db-c2ff-4712-a0c1-7263883ab665",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/getTradeList?account=emmytest2&include=0&accountChangeType=100&betweenType=1",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"getTradeList"
+					],
+					"query": [
+						{
+							"key": "account",
+							"value": "emmytest2"
+						},
+						{
+							"key": "include",
+							"value": "0"
+						},
+						{
+							"key": "accountChangeType",
+							"value": "100"
+						},
+						{
+							"key": "betweenType",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "投注记录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6546f33-ce3c-4047-9e26-1bb1f9830952",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/getbetOrderList?account=emmytest2&include=0&status=100&betweenType=1&start=0&limit=100",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"getbetOrderList"
+					],
+					"query": [
+						{
+							"key": "account",
+							"value": "emmytest2"
+						},
+						{
+							"key": "include",
+							"value": "0"
+						},
+						{
+							"key": "status",
+							"value": "100"
+						},
+						{
+							"key": "betweenType",
+							"value": "1"
+						},
+						{
+							"key": "start",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "充值记录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b0d4059-0926-487a-94de-5e1f3a864e58",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/getRechargeList?start=0&limit=100",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"getRechargeList"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "中奖信息",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3837a475-589c-4480-805e-a0b40765defd",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/sys/win/getWininfo",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"sys",
+						"win",
+						"getWininfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "未读消息数量接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3461df7b-64d3-43c7-a92e-5a9874213bd3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com//api/proxy/getNoReadNoticeStatus",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"proxy",
+						"getNoReadNoticeStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取用户VIP等级",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70e8be44-0c65-4ee1-9f01-20d84f26ba27",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com//api/vip/getUserVip",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"vip",
+						"getUserVip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的消息列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df4092b3-04e8-4d72-8973-2e832817fa3d",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/getUserNoticeList?type=1&start=0&limit=10",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"getUserNoticeList"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "1"
+						},
+						{
+							"key": "start",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "公告详情接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ab2a1ba-dfb6-4e2e-ae5b-5885db59eb8a",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/getNoticeInfor?id=78",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"proxy",
+						"getNoticeInfor"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "78"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "未读公告变为已读",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4b528f9-af24-4687-ad50-6f8389856896",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/proxy/addReadNotice?noticeId=78",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"proxy",
+						"addReadNotice"
+					],
+					"query": [
+						{
+							"key": "noticeId",
+							"value": "78"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "跳转客服接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac79fd5-e6a2-4e49-ba15-f2b0c59cac53",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/sys/sysService/getServiceUrl",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"sys",
+						"sysService",
+						"getServiceUrl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取VIP奖励接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bffaa0c-55a2-46d8-b7d5-5b5713951478",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com//api/vip/getVips",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"vip",
+						"getVips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "领取奖励",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f340c91-cab4-4c44-a885-9d459e0ae779",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "vipCode",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://1112685.com//api/vip/receivePoints",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"vip",
+						"receivePoints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "昨日盈利榜",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56121646-5a14-4889-9dd1-c19e57f39e16",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"获取成功\",function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+							"});\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-C-Auth-Token",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://1112685.com/api/lottery/getLastDayWinList",
+					"protocol": "https",
+					"host": [
+						"1112685",
+						"com"
+					],
+					"path": [
+						"api",
+						"lottery",
+						"getLastDayWinList"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
